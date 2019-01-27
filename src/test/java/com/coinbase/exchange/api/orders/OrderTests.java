@@ -1,22 +1,18 @@
 package com.coinbase.exchange.api.orders;
 
 import com.coinbase.exchange.api.BaseTest;
-import com.coinbase.exchange.api.accounts.Account;
 import com.coinbase.exchange.api.accounts.AccountService;
 import com.coinbase.exchange.api.entity.Fill;
 import com.coinbase.exchange.api.entity.NewLimitOrderSingle;
-import com.coinbase.exchange.api.entity.Product;
 import com.coinbase.exchange.api.marketdata.MarketData;
 import com.coinbase.exchange.api.marketdata.MarketDataService;
 import com.coinbase.exchange.api.products.ProductService;
-import org.apache.log4j.Logger;
-import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -26,7 +22,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class OrderTests extends BaseTest {
 
-    static final Logger log = Logger.getLogger(OrderTests.class);
+    static final Logger log = LoggerFactory.getLogger(OrderTests.class);
 
     @Autowired
     ProductService productService;
@@ -65,7 +61,7 @@ public class OrderTests extends BaseTest {
 
         Order order = orderService.createOrder(limitOrder);
 
-        assertTrue(order!=null);
+        assertTrue(order != null);
         assertEquals("BTC-USD", order.getProduct_id());
         assertEquals(size, new BigDecimal(order.getSize()).setScale(8, BigDecimal.ROUND_HALF_UP));
         assertEquals(price, new BigDecimal(order.getPrice()).setScale(8, BigDecimal.ROUND_HALF_UP));
@@ -82,7 +78,7 @@ public class OrderTests extends BaseTest {
     @Test
     public void cancelAllOrders() {
         Order[] cancelledOrders = orderService.cancelAllOpenOrders();
-        assertTrue(cancelledOrders.length >=0);
+        assertTrue(cancelledOrders.length >= 0);
     }
 
     @Test

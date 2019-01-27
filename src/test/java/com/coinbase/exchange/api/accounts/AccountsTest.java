@@ -78,7 +78,6 @@ public class AccountsTest extends BaseTest {
      * if this is due to the request (which is the same as for account history)
      * is actually fine but there's no data available.
      */
-    @Ignore
     @Test
     public void canGetPagedHolds() {
         Account[] accounts = accountService.getAccounts();

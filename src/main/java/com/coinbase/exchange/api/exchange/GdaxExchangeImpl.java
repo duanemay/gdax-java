@@ -1,7 +1,8 @@
 package com.coinbase.exchange.api.exchange;
 
 import com.google.gson.Gson;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,7 +25,7 @@ import static org.springframework.http.HttpMethod.GET;
 @Component
 public class GdaxExchangeImpl implements GdaxExchange {
 
-    static Logger log = Logger.getLogger(GdaxExchangeImpl.class.getName());
+    Logger log = LoggerFactory.getLogger(GdaxExchangeImpl.class);
 
     String publicKey;
     String passphrase;
@@ -53,8 +54,8 @@ public class GdaxExchangeImpl implements GdaxExchange {
             ResponseEntity<T> responseEntity = restTemplate.exchange(getBaseUrl() + resourcePath,
                     GET,
                     securityHeaders(resourcePath,
-                    "GET",
-                     ""),
+                            "GET",
+                            ""),
                     responseType);
             return responseEntity.getBody();
         } catch (HttpClientErrorException ex) {
@@ -77,9 +78,9 @@ public class GdaxExchangeImpl implements GdaxExchange {
     public <T> T delete(String resourcePath, ParameterizedTypeReference<T> responseType) {
         try {
             ResponseEntity<T> response = restTemplate.exchange(getBaseUrl() + resourcePath,
-                HttpMethod.DELETE,
-                securityHeaders(resourcePath, "DELETE", ""),
-                responseType);
+                    HttpMethod.DELETE,
+                    securityHeaders(resourcePath, "DELETE", ""),
+                    responseType);
             return response.getBody();
         } catch (HttpClientErrorException ex) {
             log.error("DELETE request Failed for '" + resourcePath + "': " + ex.getResponseBodyAsString());
@@ -88,7 +89,7 @@ public class GdaxExchangeImpl implements GdaxExchange {
     }
 
     @Override
-    public <T, R> T post(String resourcePath,  ParameterizedTypeReference<T> responseType, R jsonObj) {
+    public <T, R> T post(String resourcePath, ParameterizedTypeReference<T> responseType, R jsonObj) {
         Gson gson = new Gson();
         String jsonBody = gson.toJson(jsonObj);
 
@@ -130,8 +131,8 @@ public class GdaxExchangeImpl implements GdaxExchange {
 
     private void curlRequest(String method, String jsonBody, HttpHeaders headers, String resource) {
         String curlTest = "curl ";
-        for (String key : headers.keySet()){
-            curlTest +=  "-H '" + key + ":" + headers.get(key).get(0) + "' ";
+        for (String key : headers.keySet()) {
+            curlTest += "-H '" + key + ":" + headers.get(key).get(0) + "' ";
         }
         if (!jsonBody.equals(""))
             curlTest += "-d '" + jsonBody + "' ";
