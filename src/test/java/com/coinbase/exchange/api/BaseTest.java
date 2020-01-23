@@ -1,15 +1,15 @@
 package com.coinbase.exchange.api;
 
 import com.coinbase.exchange.api.exchange.GdaxExchange;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by robevansuk on 20/01/2017.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = {
                  GdaxApiApplication.class
                 },
@@ -21,4 +21,4 @@ public abstract class BaseTest {
 
     @Autowired
     public GdaxExchange exchange;
-}
+}

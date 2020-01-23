@@ -2,13 +2,13 @@ package com.coinbase.exchange.api.accounts;
 
 import com.coinbase.exchange.api.BaseTest;
 import com.coinbase.exchange.api.entity.Hold;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by robevansuk on 03/02/2017.
@@ -21,22 +21,22 @@ public class AccountsTest extends BaseTest {
     @Test
     public void canGetAccounts() {
         Account[] accounts  = accountService.getAccounts();
-        assertTrue(accounts != null);
-        assertTrue(accounts.length >= 0);
+        assertThat(accounts != null).isTrue();
+        assertThat(accounts.length >= 0).isTrue();
     }
 
     @Test
     public void getAccount() {
         Account[] accounts  = accountService.getAccounts();
         Account account = accountService.getAccount(accounts[0].getId());
-        assertTrue(account != null);
+        assertThat(account != null).isTrue();
     }
 
     @Test
     public void canGetAccountHistory() {
         Account[] accounts = accountService.getAccounts();
         AccountHistory[] history = accountService.getAccountHistory(accounts[0].getId());
-        assertTrue(history.length >=0); // anything but null/error.
+        assertThat(history.length >= 0).isTrue(); // anything but null/error.
     }
 
     /**
@@ -46,18 +46,18 @@ public class AccountsTest extends BaseTest {
     public void canGetAccountHolds() {
         Account[] accounts = accountService.getAccounts();
         Hold[] holds = accountService.getHolds(accounts[0].getId());
-        assertTrue(holds != null);
-        assertTrue(holds.length >= 0);
+        assertThat(holds != null).isTrue();
+        assertThat(holds.length >= 0).isTrue();
         if (holds.length>0) {
-            assertTrue(holds[0].getAmount().floatValue() >= 0.0f);
+            assertThat(holds[0].getAmount().floatValue() >= 0.0f).isTrue();
         }
     }
 
     @Test
     public void canGetPagedAccountHistory() {
         Account[] accounts = accountService.getAccounts();
-        assertTrue(accounts!=null);
-        assertTrue(accounts.length > 0);
+        assertThat(accounts != null).isTrue();
+        assertThat(accounts.length > 0).isTrue();
         /**
          * note that for paged requests the before param takes precedence
          * only if before is null and after is not-null will the after param be inserted.
@@ -67,9 +67,9 @@ public class AccountsTest extends BaseTest {
         int limit = 5;
         AccountHistory[] firstPageAccountHistory = accountService.getPagedAccountHistory(accounts[0].getId(),
                 beforeOrAfter, pageNumber, limit);
-        assertTrue(firstPageAccountHistory != null);
-        assertTrue(firstPageAccountHistory.length >= 0);
-        assertTrue(firstPageAccountHistory.length <= limit);
+        assertThat(firstPageAccountHistory != null).isTrue();
+        assertThat(firstPageAccountHistory.length >= 0).isTrue();
+        assertThat(firstPageAccountHistory.length <= limit).isTrue();
     }
 
     /**
@@ -82,8 +82,8 @@ public class AccountsTest extends BaseTest {
     public void canGetPagedHolds() {
         Account[] accounts = accountService.getAccounts();
 
-        assertTrue(accounts!=null);
-        assertTrue(accounts.length > 0);
+        assertThat(accounts != null).isTrue();
+        assertThat(accounts.length > 0).isTrue();
 
         String beforeOrAfter = "after";
         int pageNumber = 1;
@@ -95,9 +95,9 @@ public class AccountsTest extends BaseTest {
                 limit);
 
         if (firstPageOfHolds != null ) {
-            assertTrue(firstPageOfHolds != null);
-            assertTrue(firstPageOfHolds.length >= 0);
-            assertTrue(firstPageOfHolds.length <= limit);
+            assertThat(firstPageOfHolds != null).isTrue();
+            assertThat(firstPageOfHolds.length >= 0).isTrue();
+            assertThat(firstPageOfHolds.length <= limit).isTrue();
         }
     }
 }

@@ -1,13 +1,13 @@
 package com.coinbase.exchange.api.gui.custom;
 
 import com.coinbase.exchange.api.websocketfeed.message.OrderBookMessage;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.junit.Assert.assertThat;
 
 /**
  * Created by robevansuk on 31/03/2017.
@@ -16,7 +16,7 @@ public class OrderBookModelTest {
 
     OrderBookModel testObject;
 
-    @Before
+    @BeforeEach
     public void setup(){
         testObject = new OrderBookModel();
     }

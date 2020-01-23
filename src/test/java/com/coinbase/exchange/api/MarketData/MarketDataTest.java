@@ -3,10 +3,10 @@ package com.coinbase.exchange.api.MarketData;
 import com.coinbase.exchange.api.BaseTest;
 import com.coinbase.exchange.api.marketdata.MarketData;
 import com.coinbase.exchange.api.marketdata.MarketDataService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by robevansuk on 14/02/2017.
@@ -20,14 +20,14 @@ public class MarketDataTest extends BaseTest {
     public void canGetMarketDataForLevelOneBidAndAsk() {
         MarketData marketData = marketDataService.getMarketDataOrderBook("BTC-GBP", "1");
         System.out.println(marketData);
-        assertTrue(marketData.getSequence() > 0);
+        assertThat(marketData.getSequence() > 0).isTrue();
     }
 
     @Test
     public void canGetMarketDataForLevelTwoBidAndAsk() {
         MarketData marketData = marketDataService.getMarketDataOrderBook("BTC-GBP", "2");
         System.out.println(marketData);
-        assertTrue(marketData.getSequence() > 0);
+        assertThat(marketData.getSequence() > 0).isTrue();
     }
 
     /**
@@ -38,6 +38,6 @@ public class MarketDataTest extends BaseTest {
     public void canGetMarketDataForLevelThreeBidAndAsk() {
         MarketData marketData = marketDataService.getMarketDataOrderBook("BTC-GBP", "3");
         System.out.println(marketData);
-        assertTrue(marketData.getSequence() > 0);
+        assertThat(marketData.getSequence() > 0).isTrue();
     }
 }

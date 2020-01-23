@@ -2,8 +2,8 @@ package com.coinbase.exchange.api.MarketData;
 
 import com.coinbase.exchange.api.marketdata.MarketData;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
@@ -14,7 +14,7 @@ public class OrderItemDeserializerTest {
 
     private ObjectMapper mapper;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         mapper = new ObjectMapper();
 //        SimpleModule module = new SimpleModule();
